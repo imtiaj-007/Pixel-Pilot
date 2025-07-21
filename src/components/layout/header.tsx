@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
     const { toggleSidebar } = useSidebar()
 
     return (
-        <header className="sticky top-2 z-10 flex h-16 items-center gap-4 border rounded-md shadow-xs bg-sidebar px-4 md:px-6 mr-2">
+        <header className="flex h-16 items-center gap-4 border rounded-md shadow-xs bg-sidebar px-4 md:px-6 mr-2">
             {/* Sidebar Toggle */}
             <Tooltip>
                 <TooltipTrigger asChild>

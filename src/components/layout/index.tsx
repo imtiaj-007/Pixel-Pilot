@@ -13,11 +13,16 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => {
     return (
         <SidebarProvider>
-            <div className="flex min-h-screen w-full bg-gray-100 dark:bg-background">
+            <div className="flex h-screen w-full bg-gray-100 dark:bg-background">
                 <AppSidebar />
-                <div className="flex-1 flex flex-col overflow-hidden">
-                    <Header />
-                    <main className="flex-1 overflow-y-auto p-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div className="relative flex-1 flex flex-col">
+                    <div className="sticky top-2 z-50">
+                        <Header />
+                    </div>
+                    <main 
+                        className="flex-1 overflow-y-auto p-4"
+                        style={{ scrollbarWidth: 'thin' }}
+                    >
                         {children}
                     </main>
                 </div>
