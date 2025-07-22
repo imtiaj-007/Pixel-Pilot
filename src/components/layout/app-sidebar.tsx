@@ -25,7 +25,7 @@ export const AppSidebar: React.FC = () => {
             {/* --- Search Bar --- */}
             <SidebarInput
                 placeholder="Search..."
-                className={`mx-auto mb-2 transition-all duration-300 ${open ? 'w-56' : 'w-0'}`}
+                className={`mx-auto mb-2 transition-all duration-300 ${open ? 'w-56' : 'w-0 hidden'}`}
             />
 
             {/* --- Main Navigation Groups --- */}
@@ -44,25 +44,34 @@ export const AppSidebar: React.FC = () => {
                                     {group.items.map((item) => (
                                         <SidebarMenuItem key={item.id}>
                                             {item.subItems ? (
-                                                <>
-                                                    <SidebarMenuButton tooltip={item.label} isActive={item.href === pathName} asChild >
-                                                        <Link href={item.href || '#'}>
-                                                            {item.icon && <item.icon />}
-                                                            <span>{item.label}</span>
-                                                            {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
-                                                        </Link>
+                                                <Collapsible key={item.id} defaultOpen className="group/sub-collapsible">
+                                                    <SidebarMenuButton 
+                                                        tooltip={item.label} 
+                                                        isActive={item.href === pathName} 
+                                                        asChild
+                                                    >
+                                                        <CollapsibleTrigger asChild>
+                                                            <div className="flex items-center">
+                                                                {item.icon && <item.icon />}
+                                                                <span>{item.label}</span>
+                                                                {item.badge && <SidebarMenuBadge>{item.badge}</SidebarMenuBadge>}
+                                                                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/sub-collapsible:rotate-180" />
+                                                            </div>
+                                                        </CollapsibleTrigger>
                                                     </SidebarMenuButton>
-                                                    <SidebarMenuSub>
-                                                        {item.subItems.map((subItem) => (
-                                                            <SidebarMenuSubItem key={subItem.id}>
-                                                                <SidebarMenuSubButton href={subItem.href || '#'} isActive={item.href === pathName} >
-                                                                    {subItem.icon && <subItem.icon />}
-                                                                    <span>{subItem.label}</span>
-                                                                </SidebarMenuSubButton>
-                                                            </SidebarMenuSubItem>
-                                                        ))}
-                                                    </SidebarMenuSub>
-                                                </>
+                                                    <CollapsibleContent>
+                                                        <SidebarMenuSub>
+                                                            {item.subItems.map((subItem) => (
+                                                                <SidebarMenuSubItem key={subItem.id}>
+                                                                    <SidebarMenuSubButton href={subItem.href || '#'} isActive={item.href === pathName} >
+                                                                        {subItem.icon && <subItem.icon />}
+                                                                        <span>{subItem.label}</span>
+                                                                    </SidebarMenuSubButton>
+                                                                </SidebarMenuSubItem>
+                                                            ))}
+                                                        </SidebarMenuSub>
+                                                    </CollapsibleContent>
+                                                </Collapsible>
                                             ) : (
                                                 <SidebarMenuButton tooltip={item.label} isActive={item.href === pathName} asChild >
                                                     <Link href={item.href || '#'}>
